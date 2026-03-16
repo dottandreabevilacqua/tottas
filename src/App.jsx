@@ -117,7 +117,7 @@ export default function App() {
     try { const r = localStorage.getItem("tottas-patients"); if (r) setPatients(JSON.parse(r)); } catch {}
     try { const r = localStorage.getItem("tottas-notifications"); if (r) setNotifications(JSON.parse(r)); } catch {}
     setLoaded(true);
-  })(); }, []);
+  }, []);
 
   useEffect(() => { if (!loaded) return;
     try { localStorage.setItem("tottas-patients", JSON.stringify(patients)); } catch {}
