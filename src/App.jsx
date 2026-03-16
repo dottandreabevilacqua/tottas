@@ -114,17 +114,17 @@ export default function App() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    try { const r = localStorage.getItem("tottas-patients"); if (r) setPatients(JSON.parse(r)); } catch {}
-    try { const r = localStorage.getItem("tottas-notifications"); if (r) setNotifications(JSON.parse(r)); } catch {}
+    try { const r = localStorage.getItem("tottas-patients"); if (r) setPatients(JSON.parse(r)); } catch(e) {}
+    try { const r = localStorage.getItem("tottas-notifications"); if (r) setNotifications(JSON.parse(r)); } catch(e) {}
     setLoaded(true);
   }, []);
 
   useEffect(() => { if (!loaded) return;
-    try { localStorage.setItem("tottas-patients", JSON.stringify(patients)); } catch {}
+    try { localStorage.setItem("tottas-patients", JSON.stringify(patients)); } catch(e) {}
   }, [patients, loaded]);
 
   useEffect(() => { if (!loaded) return;
-    try { localStorage.setItem("tottas-notifications", JSON.stringify(notifications)); } catch {}
+    try { localStorage.setItem("tottas-notifications", JSON.stringify(notifications)); } catch(e) {}
   }, [notifications, loaded]);
 
   useEffect(() => { if (selected) { const u = patients.find(p => p.id === selected.id); if (u) setSelected(u); } }, [patients]);
@@ -454,7 +454,7 @@ function ChatMaria({ patient: p, onNotif, onUpdatePatient }) {
       if (ivMatch) {
         onNotif({ type: "interval_change", patient: `${p.firstName} ${p.lastName}`, detail: ivMatch[1] });
       }
-    } catch {
+    } catch(e) {
       setMsgs(prev => [...prev, { role: "assistant", text: "Problema tecnico — il team LAVILLA è stato avvisato! 🙏", time: new Date() }]);
     }
     setLoading(false); inpRef.current?.focus();
